@@ -36,7 +36,7 @@ class System:
         expected1 = player1.compareRating(player1, player2)
         expected2 = player2.compareRating(player2, player1)
 
-        print("Expected probabilities P1:", expected1, "P2:", expected2)
+        #print("Expected probabilities P1:", expected1, "P2:", expected2)
 
         k = 20
 
@@ -44,11 +44,11 @@ class System:
         rating2 = player2.rating
 
         if random.random() <= expected1:
-            print("1 wins")
+            print("p1 wins")
             score1 = 1.0
             score2 = 0.0
         else:
-            print("2 wins")
+            print("p2 wins")
             score1 = 0.0
             score2 = 1.0
 
