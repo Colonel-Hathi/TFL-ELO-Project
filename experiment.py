@@ -4,7 +4,7 @@ import numpy as np
 s = System()
 
 # TODO: Elo matches between questions?
-# TODO: Elo matching + adaptivity
+# TODO: 'perfect' adaptivity
 
 # Add players
 playercount = 10
@@ -18,16 +18,27 @@ for i in range(itemcount):
     s.addItem(str(i), rating=itemdist[i])
 
 
-def simulaterandom(n):
+# Simulation method (# of questions to answer per player, adaptibility range (-1 all random, 0 all adaptive))
+def simulate(n, r):
     for p in range(playercount):
         for i in range(n):
-            item = s.getItem(str(np.random.randint(0, itemcount)))
-            player = s.getPlayer(str(p))
-            s.game(player.name, item.name)
+            if r == -1:
+                item = s.getItem(str(np.random.randint(0, itemcount)))
+                player = s.getPlayer(str(p))
+                s.game(player.name, item.name)
+            elif r == 0:
+                #item = s.getItem(str(np.random.randint(0, itemcount)))
+                player = s.getPlayer(str(p))
+                s.game(player.name, item.name)
+            else:
+                item = s.getItem(str(np.random.randint(0, itemcount)))
+                player = s.getPlayer(str(p))
+                while np.absolute(player.rating - item.rating) >= r:
+                    item = s.getItem(str(np.random.randint(0, itemcount)))
+                s.game(player.name, item.name)
+
+
+simulate(4, -1)
 
 #print(s.getItemList())
-print(s.getRatingList())
-
-simulaterandom(4)
-
 print(s.getRatingList())
