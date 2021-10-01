@@ -7,10 +7,14 @@ class System:
     def __init__(self, base_rating=1000):
         self.base_rating = base_rating
         self.players = []
+        self.items = []
 
     # Return list of all players by name
     def __getPlayerList(self):
         return self.players
+
+    def __getItemList(self):
+        return self.items
 
     # Return a specific player by name
     def getPlayer(self, name):
@@ -29,33 +33,44 @@ class System:
     def removePlayer(self, name):
         self.__getPlayerList().remove(self.getPlayer(name))
 
-    def game(self, player1, player2, winner=None):
-        player1 = self.getPlayer(player1)
-        player2 = self.getPlayer(player2)
 
-        expected1 = player1.compareRating(player1, player2)
-        expected2 = player2.compareRating(player2, player1)
+    # Return a specific player by name
+    def getItem(self, name):
+        for i in self.__getItemList():
+            if i.name == name:
+                return i
+        return None
+
+    # Add an item
+    def addItem(self, name, rating=None):
+        if rating == None:
+            rating = self.base_rating
+        self.items.append(_Item(name, rating))
+
+    # Remove an item
+    def removeItem(self, name):
+        self.__getItemList().remove(self.getItem(name))
+
+    def game(self, player, item, winner=None):
+        player = self.getPlayer(player)
+        item = self.getItem(item)
+
+        expected1 = player.compareRating(player, item)
+        expected2 = item.compareRating(item, player)
 
         #print("Expected probabilities P1:", expected1, "P2:", expected2)
 
         k = 20
 
-        rating1 = player1.rating
-        rating2 = player2.rating
+        rating1 = player.rating
+        rating2 = item.rating
 
         if random.random() <= expected1:
-            print("p1 wins")
+            #print("Correct")
             score1 = 1.0
             score2 = 0.0
         else:
-            print("p2 wins")
-            score1 = 0.0
-            score2 = 1.0
-
-        if winner == player1.name:
-            score1 = 1.0
-            score2 = 0.0
-        elif winner == player2.name:
+            #print("Incorrect")
             score1 = 0.0
             score2 = 1.0
 
@@ -70,8 +85,8 @@ class System:
             newRating2 = 0
             newRating1 = rating1 - rating2
 
-        player1.rating = newRating1
-        player2.rating = newRating2
+        player.rating = newRating1
+        item.rating = newRating2
 
 
     def getPlayerRating(self, name):
@@ -94,8 +109,30 @@ class System:
             lst.append((player.name, player.rating))
         return lst
 
+    def getItemList(self):
+        """
+        Returns a list of tuples in the form of ({item},{rating})
+        @return - the list of tuples
+        """
+        lst = []
+        for item in self.__getItemList():
+            lst.append((item.name, item.rating))
+        return lst
+
 # Object class for the player
 class _Player:
+
+    def __init__(self, name, rating):
+        self.name = name
+        self.rating = rating
+
+    # Method to compare player ratings and return expected score
+    def compareRating(self, name, opponent):
+        return ( 1+10**( ( opponent.rating-self.rating )/400.0 ) ) ** -1
+
+
+# Object class for question items
+class _Item:
 
     def __init__(self, name, rating):
         self.name = name

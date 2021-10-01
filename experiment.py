@@ -3,22 +3,31 @@ import numpy as np
 
 s = System()
 
-# Add players
-s.addPlayer("a")
-s.addPlayer("b", rating=900)
-
-# Generate question list (mean, std dev, amount)
-itemlist = np.random.normal(1000, 200, 100)
-
-# TODO: Automate random player addition
 # TODO: Elo matches between questions?
 # TODO: Elo matching + adaptivity
 
-def simulate(n):
-    for i in range(n):
-        s.game("a", "b")
-    print("Rating of a:", s.getPlayerRating("a"))
-    print("Rating of b:", s.getPlayerRating("b"))
+# Add players
+playercount = 10
+itemcount = 100
+for p in range(playercount):
+    s.addPlayer(str(p))
+
+# Generate question list (mean, std dev, amount)
+itemdist = np.random.normal(1000, 200, itemcount)
+for i in range(itemcount):
+    s.addItem(str(i), rating=itemdist[i])
 
 
-#simulate(4)
+def simulaterandom(n):
+    for p in range(playercount):
+        for i in range(n):
+            item = s.getItem(str(np.random.randint(0, itemcount)))
+            player = s.getPlayer(str(p))
+            s.game(player.name, item.name)
+
+#print(s.getItemList())
+print(s.getRatingList())
+
+simulaterandom(4)
+
+print(s.getRatingList())
