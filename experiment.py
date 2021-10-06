@@ -4,10 +4,12 @@ import numpy as np
 s = System()
 
 # TODO: Elo matches between questions?
-# TODO: Export functionality
+# TODO: Classes for students (different start rating)
+
 
 # Add players
 playercount = 5
+# Add items
 itemcount = 10
 for p in range(playercount):
     s.addPlayer(str(p))
@@ -22,10 +24,12 @@ for i in range(itemcount):
 def simulate(n, r):
     for p in range(playercount):
         for i in range(n):
+            # All random questions
             if r == -1:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
                 s.game(player.name, item.name)
+            # 'Perfect' adaptibility, always choose best question
             elif r == 0:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
@@ -33,6 +37,7 @@ def simulate(n, r):
                     if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - item.rating):
                         itemmatch = s.getItem(str(i))
                 s.game(player.name, itemmatch.name)
+            # r as acceptable elo range for questions
             else:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))

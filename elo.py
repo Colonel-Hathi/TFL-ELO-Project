@@ -3,6 +3,7 @@ import random
 
 # Defines System implementation
 class System:
+    g = 0
     # Initialize class, base rating of 1000
     def __init__(self, base_rating=1000):
         self.base_rating = base_rating
@@ -64,13 +65,14 @@ class System:
 
         rating1 = player.rating
         rating2 = item.rating
-
+        g = g + 1
+        if g == 10:
+        #    expected1 = 0.5
+            g = 0
         if random.random() <= expected1:
-            #print("Correct")
             score1 = 1.0
             score2 = 0.0
         else:
-            #print("Incorrect")
             score1 = 0.0
             score2 = 1.0
 
