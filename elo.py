@@ -9,6 +9,7 @@ class System:
         self.base_rating = base_rating
         self.players = []
         self.items = []
+        self.classes = []
 
     # Return list of all players by name
     def __getPlayerList(self):
@@ -16,6 +17,9 @@ class System:
 
     def __getItemList(self):
         return self.items
+
+    def __getClassList(self):
+        return self.classes
 
     # Return a specific player by name
     def getPlayer(self, name):
@@ -25,15 +29,31 @@ class System:
         return None
 
     # Add a player (rating optional)
-    def addPlayer(self, name, rating=None):
+    def addPlayer(self, name, classname, rating=None):
         if rating == None:
             rating = self.base_rating
-        self.players.append(_Player(name, rating))
+        self.players.append(_Player(name, classname, rating))
 
     # Remove a player
     def removePlayer(self, name):
         self.__getPlayerList().remove(self.getPlayer(name))
 
+    def addClass(self, name, startrating):
+        self.classes.append(_Class(name, startrating))
+
+    def getClass(self, name):
+        for c in self.__getClassList():
+            if c.name == name:
+                return c
+
+    def getClasses(self):
+        return self.classes
+
+    def addToClass(self, classname, playername):
+        c = self.getClass(classname)
+        for p in self.__getPlayerList():
+            if p.name == playername:
+                c.addPlayerToClass(p)
 
     # Return a specific player by name
     def getItem(self, name):
@@ -65,10 +85,10 @@ class System:
 
         rating1 = player.rating
         rating2 = item.rating
-        g = g + 1
-        if g == 10:
+        #g = g + 1
+        #if g == 10:
         #    expected1 = 0.5
-            g = 0
+        #    g = 0
         if random.random() <= expected1:
             score1 = 1.0
             score2 = 0.0
@@ -108,7 +128,7 @@ class System:
         """
         lst = []
         for player in self.__getPlayerList():
-            lst.append((player.name, player.rating))
+            lst.append((player.name, player.classname, player.rating))
         return lst
 
     def getItemList(self):
@@ -124,8 +144,9 @@ class System:
 # Object class for the player
 class _Player:
 
-    def __init__(self, name, rating):
+    def __init__(self, name, classname, rating):
         self.name = name
+        self.classname = classname
         self.rating = rating
 
     # Method to compare player ratings and return expected score
@@ -143,3 +164,18 @@ class _Item:
     # Method to compare player ratings and return expected score
     def compareRating(self, name, opponent):
         return ( 1+10**( ( opponent.rating-self.rating )/400.0 ) ) ** -1
+
+class _Class:
+
+    def __init__(self, name, startrating):
+        self.name = name
+        self.startrating = startrating
+        self.classplayers = []
+
+    # Method to add players
+    def addPlayerToClass(self, player):
+        self.classplayers.append(player)
+
+    # Get players in class
+    def getPlayersInClass(self, name):
+        return self.classplayers

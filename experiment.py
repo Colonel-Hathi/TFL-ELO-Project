@@ -4,15 +4,28 @@ import numpy as np
 s = System()
 
 # TODO: Elo matches between questions?
-# TODO: Classes for students (different start rating)
+# TODO: Implement dynamic classes (maybe?)
 
 
 # Add players
-playercount = 5
+playercount = 20
 # Add items
-itemcount = 10
+itemcount = 50
+
+# Add Classes
+s.addClass("a", 1000)
+s.addClass("b", 900)
+
+#print(s.getClass("b").startrating)
+
+# Add players for each class
 for p in range(playercount):
-    s.addPlayer(str(p))
+    if p < 10:
+        s.addPlayer(str(p), "a", s.getClass("a").startrating)
+        #s.addToClass("a", str(p))
+    else:
+        s.addPlayer(str(p), "b", s.getClass("b").startrating)
+        #s.addToClass("b", str(p))
 
 # Generate question list (mean, std dev, amount)
 itemdist = np.random.normal(1000, 200, itemcount)
@@ -20,7 +33,7 @@ for i in range(itemcount):
     s.addItem(str(i), rating=itemdist[i])
 
 
-# Simulation method (# of questions to answer per player, adaptibility range (-1 all random, 0 all adaptive))
+# Simulation method (# of questions to answer per player, adaptability range (-1 all random, 0 all adaptive))
 def simulate(n, r):
     for p in range(playercount):
         for i in range(n):
@@ -29,7 +42,7 @@ def simulate(n, r):
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
                 s.game(player.name, item.name)
-            # 'Perfect' adaptibility, always choose best question
+            # 'Perfect' adaptability, always choose best question
             elif r == 0:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
@@ -47,7 +60,7 @@ def simulate(n, r):
 
 print(s.getRatingList())
 
-simulate(4, -1)
+simulate(10, -1)
 
 #print(s.getItemList())
 print(s.getRatingList())
