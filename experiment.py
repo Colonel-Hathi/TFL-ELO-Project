@@ -8,9 +8,9 @@ s = System()
 
 
 # Add players
-playercount = 20
+playercount = 100
 # Add items
-itemcount = 50
+itemcount = 400
 
 # Add Classes
 s.addClass("a", 1000)
@@ -20,7 +20,7 @@ s.addClass("b", 900)
 
 # Add players for each class
 for p in range(playercount):
-    if p < 10:
+    if p < playercount / 2:
         s.addPlayer(str(p), "a", s.getClass("a").startrating)
         #s.addToClass("a", str(p))
     else:
@@ -47,20 +47,20 @@ def simulate(n, r):
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
                 for i in range(itemcount):
-                    if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - item.rating):
+                    if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
                         itemmatch = s.getItem(str(i))
                 s.game(player.name, itemmatch.name)
             # r as acceptable elo range for questions
             else:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
-                while np.absolute(player.rating - item.rating) >= r:
+                while np.absolute(player.rating - item.rating) <= r:
                     item = s.getItem(str(np.random.randint(0, itemcount)))
                 s.game(player.name, item.name)
 
 print(s.getRatingList())
 
-simulate(10, -1)
+simulate(10000, 200)
 
 #print(s.getItemList())
 print(s.getRatingList())
