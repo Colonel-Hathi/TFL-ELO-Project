@@ -44,7 +44,7 @@ def simulate(n, r):
                 s.game(player.name, item.name)
             # 'Perfect' adaptability, always choose best question
             elif r == 0:
-                item = s.getItem(str(np.random.randint(0, itemcount)))
+                itemmatch = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
                 for i in range(itemcount):
                     if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
@@ -60,7 +60,7 @@ def simulate(n, r):
 
 print(s.getRatingList())
 
-simulate(10000, 200)
+simulate(100, 0)
 
 #print(s.getItemList())
 print(s.getRatingList())
