@@ -32,7 +32,7 @@ class System:
     def addPlayer(self, name, classname, rating=None):
         if rating == None:
             rating = self.base_rating
-        self.players.append(_Player(name, classname, rating))
+        self.players.append(_Player(name, classname, rating, []))
 
     # Remove a player
     def removePlayer(self, name):
@@ -146,12 +146,11 @@ class System:
 # Object class for the player
 class _Player:
 
-    itemsdone = []
-
-    def __init__(self, name, classname, rating):
+    def __init__(self, name, classname, rating, itemsdone):
         self.name = name
         self.classname = classname
         self.rating = rating
+        self.itemsdone = itemsdone
 
     # Method to compare player ratings and return expected score
     def compareRating(self, name, opponent):

@@ -62,14 +62,13 @@ def simulate(n, r):
                 s.game(player.name, itemmatch.name)
             # r as acceptable elo range for questions
             else:
-                item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
                 for i in range(itemcount):
+                    item = s.getItem(str(i))
                     if item.name in player.getItemsDone():
                         continue
                     else:
                         if np.absolute(player.rating - item.rating) <= r:
-                            item = s.getItem(str(i))
                             s.game(player.name, item.name)
                             break
                         else:
