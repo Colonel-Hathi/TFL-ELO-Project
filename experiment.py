@@ -76,7 +76,7 @@ def simulate(n, r):
 
 print(s.getRatingList())
 
-simulate(100, 200)
+simulate(100, 0)
 
 #print(s.getItemList())
 print(s.getRatingList())
