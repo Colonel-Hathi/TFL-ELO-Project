@@ -9,11 +9,11 @@ s = System()
 # Add players
 playercount = 100
 # Add items
-itemcount = 500
+itemcount = 4500
 
 # Add Classes
 s.addClass("a", 1000)
-s.addClass("b", 900)
+s.addClass("b", 1000)
 
 #print(s.getClass("b").startrating)
 
@@ -35,22 +35,17 @@ for i in range(itemcount):
 # Simulation method (# of questions to answer per player, adaptability range (-1 all random, 0 all adaptive))
 def simulate(n, r):
     for p in range(playercount):
-        if p % 5 == 0:
-            print("Still going! At:", p)
+        print("Still going! At:", p, "%")
+        #notdone = True
         for i in range(n):
             # All random questions
             if r == -1:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
-                check = False
-                while check:
-                    if item.name in player.getItemsDone:
-                        item = s.getItem(str(np.random.randint(0, itemcount)))
-                        check = True
-                    else:
-                        continue
+                while item.name in player.getItemsDone():
+                    item = s.getItem(str(np.random.randint(0, itemcount)))
                 s.game(player.name, item.name)
-                check = False
+                check = True
             # 'Perfect' adaptability, always choose best question
             elif r == 0:
                 itemmatch = s.getItem(str(np.random.randint(0, itemcount)))
@@ -63,7 +58,9 @@ def simulate(n, r):
                             itemmatch = s.getItem(str(i))
                         else:
                             continue
-                s.game(player.name, itemmatch.name)
+                    s.game(player.name, itemmatch.name)
+                if np.absolute(player.rating - itemmatch.rating) > 400:
+                    break
             # r as acceptable elo range for questions
             else:
                 player = s.getPlayer(str(p))
@@ -78,9 +75,7 @@ def simulate(n, r):
                         else:
                             continue
 
+
 print(s.getRatingList())
-
-simulate(450, 0)
-
-#print(s.getItemList())
+simulate(4000, 0)
 print(s.getRatingList())

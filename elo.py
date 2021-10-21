@@ -85,10 +85,6 @@ class System:
 
         rating1 = player.rating
         rating2 = item.rating
-        #g = g + 1
-        #if g == 10:
-        #    expected1 = 0.5
-        #    g = 0
         if random.random() <= expected1:
             score1 = 1.0
             score2 = 0.0
