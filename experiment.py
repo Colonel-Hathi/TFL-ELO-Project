@@ -9,7 +9,7 @@ s = System()
 # Add players
 playercount = 100
 # Add items
-itemcount = 400
+itemcount = 500
 
 # Add Classes
 s.addClass("a", 1000)
@@ -35,6 +35,8 @@ for i in range(itemcount):
 # Simulation method (# of questions to answer per player, adaptability range (-1 all random, 0 all adaptive))
 def simulate(n, r):
     for p in range(playercount):
+        if p % 5 == 0:
+            print("Still going! At:", p)
         for i in range(n):
             # All random questions
             if r == -1:
@@ -54,11 +56,13 @@ def simulate(n, r):
                 itemmatch = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
                 for i in range(itemcount):
-                    if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
-                        if itemmatch.name in player.getItemsDone():
-                            continue
-                        else:
+                    if s.getItem(str(i)).name in player.getItemsDone():
+                        continue
+                    else:
+                        if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
                             itemmatch = s.getItem(str(i))
+                        else:
+                            continue
                 s.game(player.name, itemmatch.name)
             # r as acceptable elo range for questions
             else:
@@ -76,7 +80,7 @@ def simulate(n, r):
 
 print(s.getRatingList())
 
-simulate(100, 0)
+simulate(450, 0)
 
 #print(s.getItemList())
 print(s.getRatingList())
