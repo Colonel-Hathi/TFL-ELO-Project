@@ -9,7 +9,7 @@ s = System()
 # Add players
 playercount = 100
 # Add items
-itemcount = 4500
+itemcount = 5500
 
 # Add Classes
 s.addClass("a", 1000)
@@ -38,6 +38,8 @@ def simulate(n, r):
         print("Still going! At:", p, "%")
         #notdone = True
         for i in range(n):
+            if i % 50 == 0:
+                print("Still asking! At:", (i / n) * 100, "%")
             # All random questions
             if r == -1:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
@@ -48,18 +50,22 @@ def simulate(n, r):
                 check = True
             # 'Perfect' adaptability, always choose best question
             elif r == 0:
-                itemmatch = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
+                check = False
                 for i in range(itemcount):
                     if s.getItem(str(i)).name in player.getItemsDone():
                         continue
                     else:
-                        if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
+                        chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 1)
+                        if chance == 0.5:
+                        #if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
                             itemmatch = s.getItem(str(i))
+                            s.game(player.name, itemmatch.name)
+                            check = True
+                            break
                         else:
                             continue
-                    s.game(player.name, itemmatch.name)
-                if np.absolute(player.rating - itemmatch.rating) > 400:
+                if not check:
                     break
             # r as acceptable elo range for questions
             else:
@@ -77,5 +83,5 @@ def simulate(n, r):
 
 
 print(s.getRatingList())
-simulate(4000, 0)
+simulate(5000, 0)
 print(s.getRatingList())
