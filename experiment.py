@@ -7,9 +7,9 @@ s = System()
 
 
 # Add players
-playercount = 100
+playercount = 30
 # Add items
-itemcount = 5500
+itemcount = 4000
 
 # Add Classes
 s.addClass("a", 1000)
@@ -38,14 +38,10 @@ def simulate(n, r):
         print("Still going! At:", p, "%")
         #notdone = True
         for i in range(n):
-            if i % 50 == 0:
-                print("Still asking! At:", (i / n) * 100, "%")
             # All random questions
             if r == -1:
                 item = s.getItem(str(np.random.randint(0, itemcount)))
                 player = s.getPlayer(str(p))
-                while item.name in player.getItemsDone():
-                    item = s.getItem(str(np.random.randint(0, itemcount)))
                 s.game(player.name, item.name)
                 check = True
             # 'Perfect' adaptability, always choose best question
@@ -53,35 +49,29 @@ def simulate(n, r):
                 player = s.getPlayer(str(p))
                 check = False
                 for i in range(itemcount):
-                    if s.getItem(str(i)).name in player.getItemsDone():
-                        continue
+                    chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 1)
+                    if chance == 0.5:
+                    #if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
+                        itemmatch = s.getItem(str(i))
+                        s.game(player.name, itemmatch.name)
+                        check = True
+                        break
                     else:
-                        chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 1)
-                        if chance == 0.5:
-                        #if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
-                            itemmatch = s.getItem(str(i))
-                            s.game(player.name, itemmatch.name)
-                            check = True
-                            break
-                        else:
-                            continue
+                        continue
                 if not check:
                     break
             # r as acceptable elo range for questions
             else:
                 player = s.getPlayer(str(p))
+                chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 2)
                 for i in range(itemcount):
                     item = s.getItem(str(i))
-                    if item.name in player.getItemsDone():
-                        continue
+                    if chance > 0.15 and chance < 0.85:
+                        s.game(player.name, item.name)
+                        break
                     else:
-                        if np.absolute(player.rating - item.rating) <= r:
-                            s.game(player.name, item.name)
-                            break
-                        else:
-                            continue
-
+                        continue
 
 print(s.getRatingList())
-simulate(5000, 0)
+simulate(5, 300)
 print(s.getRatingList())

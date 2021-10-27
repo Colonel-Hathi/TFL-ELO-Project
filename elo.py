@@ -81,7 +81,7 @@ class System:
 
         #print("Expected probabilities P1:", expected1, "P2:", expected2)
 
-        k = 20
+        k = 40
 
         rating1 = player.rating
         rating2 = item.rating
@@ -105,9 +105,6 @@ class System:
 
         player.rating = newRating1
         item.rating = newRating2
-
-        player.itemDone(item.name)
-
 
     def getPlayerRating(self, name):
         """
@@ -146,17 +143,10 @@ class _Player:
         self.name = name
         self.classname = classname
         self.rating = rating
-        self.itemsdone = itemsdone
 
     # Method to compare player ratings and return expected score
     def compareRating(self, name, opponent):
         return ( 1+10**( ( opponent.rating-self.rating )/400.0 ) ) ** -1
-
-    def itemDone(self, itemname):
-        self.itemsdone.append(itemname)
-
-    def getItemsDone(self):
-        return self.itemsdone
 
 
 # Object class for question items
