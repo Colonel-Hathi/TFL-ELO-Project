@@ -7,11 +7,11 @@ s = System()
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #SET VARIABLES FROM HERE
 # Add players
-playercount = 100
+playercount = 50
 #size of item pool
-itemcount = 6000
+itemcount = 7500
 #nr of items each player is given = nr of matches
-itemnr = 3000
+itemnr = 5
 #scenario -1 = random, 0 = perfect, 1 = range
 r = -1
 
@@ -45,6 +45,7 @@ def simulate(r):
                 perfect_adaptivity(p)
             else:
                 range_adaptivity(p)
+    print("Done!jupyter ")
 
 def no_adaptivity(p):
     item = s.getItem(str(np.random.randint(0, itemcount)))
