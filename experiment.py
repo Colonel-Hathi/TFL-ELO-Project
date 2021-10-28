@@ -1,21 +1,17 @@
 from elo import *
 import numpy as np
+import csv
 
 s = System()
 
-# TODO: Elo matches between questions?
-
-
 # Add players
-playercount = 30
+playercount = 100
 # Add items
 itemcount = 4000
 
 # Add Classes
 s.addClass("a", 1000)
 s.addClass("b", 1000)
-
-#print(s.getClass("b").startrating)
 
 # Add players for each class
 for p in range(playercount):
@@ -33,45 +29,52 @@ for i in range(itemcount):
 
 
 # Simulation method (# of questions to answer per player, adaptability range (-1 all random, 0 all adaptive))
-def simulate(n, r):
+def simulate(r):
+    print("scenario: " + str(r))
+    print("playercount: " + str(playercount))
+    print("itemcount: " + str(itemcount))
     for p in range(playercount):
-        print("Still going! At:", p, "%")
-        #notdone = True
-        for i in range(n):
-            # All random questions
-            if r == -1:
-                item = s.getItem(str(np.random.randint(0, itemcount)))
-                player = s.getPlayer(str(p))
-                s.game(player.name, item.name)
-                check = True
-            # 'Perfect' adaptability, always choose best question
-            elif r == 0:
-                player = s.getPlayer(str(p))
-                check = False
-                for i in range(itemcount):
-                    chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 1)
-                    if chance == 0.5:
-                    #if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
-                        itemmatch = s.getItem(str(i))
-                        s.game(player.name, itemmatch.name)
-                        check = True
-                        break
-                    else:
-                        continue
-                if not check:
-                    break
-            # r as acceptable elo range for questions
-            else:
-                player = s.getPlayer(str(p))
-                chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 2)
-                for i in range(itemcount):
-                    item = s.getItem(str(i))
-                    if chance > 0.15 and chance < 0.85:
-                        s.game(player.name, item.name)
-                        break
-                    else:
-                        continue
+        print("-----" + str(p) + "------")
+        if r == -1:
+            no_adaptivity(p)
+        elif r == 0:
+            perfect_adaptivity(p)
+        else:
+            range_adaptivity(p)
 
-print(s.getRatingList())
-simulate(5, 300)
-print(s.getRatingList())
+def no_adaptivity(p):
+    item = s.getItem(str(np.random.randint(0, itemcount)))
+    player = s.getPlayer(str(p))
+    s.game(player.name, item.name)
+
+def perfect_adaptivity(p):
+    player = s.getPlayer(str(p))
+    for i in range(itemcount):
+        chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), s.getItem(str(i))), 1)
+        if chance == 0.5:
+            # if np.absolute(player.rating - s.getItem(str(i)).rating) < np.absolute(player.rating - itemmatch.rating):
+            itemmatch = s.getItem(str(i))
+            s.game(player.name, itemmatch.name)
+
+def range_adaptivity(p):
+    player = s.getPlayer(str(p))
+    for i in range(itemcount):
+        item = s.getItem(str(i))
+        chance = np.round(s.getPlayer(str(p)).compareRating(s.getPlayer(str(p)), item), 2)
+        if chance > 0.15 and chance < 0.85:
+            s.game(player.name, item.name)
+
+
+simulate(-1)
+
+ratings = []
+ratinglist = s.getRatingList()
+
+for i in range(len(ratinglist)):
+    ratings.append(ratinglist[i][2])
+
+print(ratinglist)
+
+with open("result", 'w', newline='') as myfile:
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(ratings)
