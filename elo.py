@@ -79,8 +79,6 @@ class System:
         expected1 = player.compareRating(player, item)
         expected2 = item.compareRating(item, player)
 
-        #print("Expected probabilities P1:", expected1, "P2:", expected2)
-
         k = 40
 
         rating1 = player.rating
