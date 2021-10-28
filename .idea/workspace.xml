@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="72006ddc-8199-4470-bfee-afc910bc5297" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ELO Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ELO Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="72006ddc-8199-4470-bfee-afc910bc5297" name="Default Changelist" comment="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file">
+      <change afterPath="$PROJECT_DIR$/result-1100500.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result1100500.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elo.py" beforeDir="false" afterPath="$PROJECT_DIR$/elo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,12 +29,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1yo6nO4i5IlVEJQ3LyyLdqLhUcN" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/INFOMBIN/Group Project" />
@@ -100,6 +104,14 @@
       <option name="presentableId" value="Default" />
       <updated>1632905759109</updated>
     </task>
+    <task id="LOCAL-00001" summary="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file">
+      <created>1635418784783</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1635418784783</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,5 +125,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file" />
   </component>
 </project>
