@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72006ddc-8199-4470-bfee-afc910bc5297" name="Default Changelist" comment="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file.&#10;Run 100 players with 500 items for all 3 scenarios">
-      <change afterPath="$PROJECT_DIR$/outrandV2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ELO Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ELO Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/outperfect30-5000-75000" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/outrangV2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Graphs-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Graphs-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Graphs.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Graphs.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outrandV2" beforeDir="false" afterPath="$PROJECT_DIR$/outrandV2" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
