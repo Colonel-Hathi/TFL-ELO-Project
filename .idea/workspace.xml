@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="72006ddc-8199-4470-bfee-afc910bc5297" name="Default Changelist" comment="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file">
-      <change afterPath="$PROJECT_DIR$/result-1100500.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result1100500.txt" afterDir="false" />
+    <list default="true" id="72006ddc-8199-4470-bfee-afc910bc5297" name="Default Changelist" comment="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file.&#10;Run 100 players with 500 items for all 3 scenarios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elo.py" beforeDir="false" afterPath="$PROJECT_DIR$/elo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635418784783</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file.&#10;Run 100 players with 500 items for all 3 scenarios">
+      <created>1635425430031</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1635425430031</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,6 +133,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file" />
+    <MESSAGE value="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file.&#10;Run 100 players with 500 items for all 3 scenarios" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring of code to make it more optimal, writing resulting elo ratings to csv file.&#10;Run 100 players with 500 items for all 3 scenarios" />
   </component>
 </project>

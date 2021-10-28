@@ -4,14 +4,16 @@ import csv
 
 s = System()
 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#SET VARIABLES FROM HERE
 # Add players
 playercount = 100
 #size of item pool
-itemcount = 5000
+itemcount = 6000
+#nr of items each player is given = nr of matches
+itemnr = 3000
 #scenario -1 = random, 0 = perfect, 1 = range
-r = 0
-#nir of items each player is given = nr of matches
-itemnr = 1000
+r = -1
 
 # Add Classes
 s.addClass("a", 1000)
@@ -25,7 +27,7 @@ for p in range(playercount):
         s.addPlayer(str(p), "b", s.getClass("b").startrating)
 
 # Generate question list (mean, std dev, amount)
-itemdist = np.random.normal(1000, 200, itemcount)
+itemdist = np.random.normal(1000, 300, itemcount)
 for i in range(itemcount):
     s.addItem(str(i), rating=itemdist[i])
 
@@ -68,16 +70,26 @@ def range_adaptivity(p):
             break
 
 
+#run simulation
 simulate(r)
 
+#write ratings to csv file
 ratings = []
 ratinglist = s.getRatingList()
+
+itemratings = []
+itemslist = s.getItemList()
 
 for i in range(len(ratinglist)):
     ratings.append(ratinglist[i][2])
 
-print(ratinglist)
+for j in range (len(itemslist)):
+    itemratings.append(itemslist[j][1])
 
-with open("result"+str(r)+str(playercount)+str(itemcount)+str(itemnr)+".txt", 'w', newline='') as myfile:
-    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+with open("PLAYER_RATINGS"+str(r)+str(playercount)+str(itemcount)+str(itemnr)+".txt", 'w', newline='') as myfile:
+    wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
     wr.writerow(ratings)
+
+with open("ITEM_RATINGS"+str(r)+str(playercount)+str(itemcount)+str(itemnr)+".txt", 'w', newline='') as myfile:
+    wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
+    wr.writerow(itemratings)
